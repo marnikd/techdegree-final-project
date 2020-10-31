@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Route } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown'
 
 import NotFound from './NotFound'
 
@@ -15,28 +16,6 @@ export default class CourseDetail extends Component {
 
 componentDidMount(){
     this.courses();
-}
-
-courses = () => {
-    this.setState({
-        loading: true
-    });
-    this.props.context.actions.fetchCourses()
-    .then(response => {
-        this.setState({
-            courses: response,
-            loading: false
-        });
-    })
-    .catch(error =>{
-        console.log('Error fetching data', error);
-    });
-}
-
-
-deleteCourse = () => {
-  this.props.context.data.deleteCourse(this.props.context.authenticatedUser.cred, this.props.match.params.id)
-  this.props.history.push('/')
 }
 
   render() {
@@ -65,7 +44,7 @@ deleteCourse = () => {
                     <p>By {courses[num].userIdentity.firstName} {courses[num].userIdentity.lastName}</p>
                   </div>
                   <div className="course--description">
-                    {courses[num].description}
+                    <ReactMarkdown source={courses[num].description} />
                   </div>
                 </div>
                 <div className="grid-25 grid-right">
@@ -78,7 +57,7 @@ deleteCourse = () => {
                       <li className="course--stats--list--item">
                         <h4>Materials Needed</h4>
                         <ul>
-                          {courses[num].materialsNeeded}
+                        <ReactMarkdown source={courses[num].materialsNeeded} />
                         </ul>
                       </li>
                     </ul>
@@ -89,5 +68,28 @@ deleteCourse = () => {
    
     );
   }
+
+      courses = () => {
+        this.setState({
+            loading: true
+        });
+        this.props.context.actions.fetchCourses()
+        .then(response => {
+            this.setState({
+                courses: response,
+                loading: false
+            });
+        })
+        .catch(error =>{
+            console.log('Error fetching data', error);
+            this.props.history.push('/error');
+        });
+    }
+
+
+    deleteCourse = () => {
+      this.props.context.data.deleteCourse(this.props.context.authenticatedUser.cred, this.props.match.params.id)
+      this.props.history.push('/')
+    }
   }
 

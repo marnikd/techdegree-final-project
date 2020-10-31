@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 
-import Form from './Form';
-import NotFound from './NotFound'
+import Form from './Form'
+import NotFound from './NotFound';
+import Forbidden from './Forbidden';
 
 export default class UpdateCourse extends Component {
   
@@ -39,6 +39,7 @@ componentDidMount(){
     } = this.state;    
 
     return ((this.state.loading)?<p>Loading...</p>:
+       <Route render={()=>(this.props.context.authenticatedUser && courses[num] && this.props.context.authenticatedUser.id===courses[num].userId)?
        <Route render={()=> (courses[num])?<div className="bounds course--detail">
         <h1>Update Course</h1>
         {this.update(num)}
@@ -82,7 +83,7 @@ componentDidMount(){
            )}  
           />
         </div>
-        </div>:<NotFound/>}/>
+        </div>:<NotFound/>}/>:<Forbidden/>}/>
     );
   }
 
@@ -163,7 +164,7 @@ componentDidMount(){
       )
       .catch((err) => {
         console.log(err);
-        this.props.history.push('/');
+        this.props.history.push('/error');
       });
   
   }

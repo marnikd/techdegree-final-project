@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Cookies from 'js-cookie';
 import Data from './Data';
-import axios from 'axios'
 
 const Context = React.createContext(); 
 

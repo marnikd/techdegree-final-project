@@ -90,9 +90,6 @@ export default class UserSignUp extends Component {
       password,
     } = this.state;
 
-    console.log(this.state)
-
-    // Create user
     const user = {
       firstName,
       lastName,
@@ -112,7 +109,7 @@ export default class UserSignUp extends Component {
       })
       .catch((err) => {
         console.log(err);
-        this.props.history.push('/');
+        this.props.history.push('/error');
         
       });
   

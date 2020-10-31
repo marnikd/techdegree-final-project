@@ -15,21 +15,6 @@ componentDidMount(){
     this.courses();
 }
 
-courses = () => {
-    this.setState({
-        loading: true
-    });
-    this.props.context.actions.fetchCourses()
-    .then(response => {
-        this.setState({
-            courses: response,
-            loading: false
-        });
-    })
-    .catch(error =>{
-        console.log('Error fetching data', error);
-    });
-}
   render() {
     const { courses } = this.state;
     const jsx = [];
@@ -55,7 +40,24 @@ courses = () => {
     )
   
 
-}
+    }
+
+    courses = () => {
+      this.setState({
+          loading: true
+      });
+      this.props.context.actions.fetchCourses()
+      .then(response => {
+          this.setState({
+              courses: response,
+              loading: false
+          });
+      })
+      .catch(error =>{
+          console.log('Error fetching data', error);
+          this.props.history.push('/error');
+      });
+    }
 }
 
   

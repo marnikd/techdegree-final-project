@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import Form from './Form';
-import { Route } from 'react-router-dom';
 
 
 export default class CreateCourse extends Component {
@@ -26,15 +24,6 @@ export default class CreateCourse extends Component {
       <div className="bounds course--detail">
         <h1>Create Course</h1>
         <div>
-          <div>
-          <Route render={ () => (errors)?<h2></h2>:<h2 className="validation--errors--label">Validation errors</h2>}/>
-            <div className="validation-errors">
-              <ul>
-                <Route render={ () => (errors)?<li></li>:<li>Please provide a value for "Title"</li>}/>
-                <Route render={ () => (errors)?<li></li>:<li>Please provide a value for "Description"</li>}/>
-              </ul>
-            </div>
-          </div>
           <Form
           cancel={this.cancel}
           errors={errors}
@@ -122,7 +111,7 @@ export default class CreateCourse extends Component {
       )
       .catch((err) => {
         console.log(err);
-        this.props.history.push('/');
+        this.props.history.push('/error');
       });
   
   }
