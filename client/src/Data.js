@@ -23,6 +23,7 @@ export default class Data {
     return await fetch(url, options);
   }
 
+  //Uses api to try to get the user matching the email and password given as inputs
   async getUser(emailAddress, password) {
     const response = await this.api('/users', 'GET', null, true, false, { emailAddress, password });
     if (response.status === 200) {
@@ -36,6 +37,7 @@ export default class Data {
     }
   }
   
+  //Creates user through POST /users with the user inputs
   async createUser(user) {
     const response = await this.api('/users', 'POST', user);
     if (response.status === 201) {
@@ -51,6 +53,7 @@ export default class Data {
     }
   }
 
+  //Gets all courses in the database 
   async getCourses() {
     const response = await this.api(`/courses`, 'GET');
     if (response.status === 200) {
@@ -66,6 +69,23 @@ export default class Data {
     }
   }
 
+  //Gets 1 specific course based on the course id given
+  async getCourse(id) {
+    const response = await this.api(`/courses/${id}`, 'GET');
+    if (response.status === 200) {
+      return response.json().then(data =>{
+        return data.course;
+        });
+    }
+    else if (response.status === 401) {
+      return null;
+    }
+    else {
+      throw new Error();
+    }
+  }
+
+  //Creates a course and uses the credentials to give access to this api function
   async createCourse(course, credentials) {
     const response = await this.api('/courses', 'POST', course, true, true, credentials);
     if (response.status === 201) {
@@ -81,6 +101,7 @@ export default class Data {
     }
   }
 
+  //Creates a course and uses the credentials to give access to this api function
   async updateCourse(course, credentials, id) {
     const response = await this.api( `/courses/${id}`, 'PUT', course, true, true, credentials);
     if (response.status === 204) {
@@ -97,6 +118,7 @@ export default class Data {
   }
 
 
+  //Deletes the course based on the id given and the credentials to give access to this api function
   async deleteCourse(credentials, id) {
     console.log('deleteCourse function');
     const response = await this.api( `/courses/${id}`, 'DELETE', null, true, true, credentials);

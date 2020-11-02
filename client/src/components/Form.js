@@ -1,5 +1,6 @@
 import React from 'react';
 
+//This form component is used to handle the 4 user input sections used throughout the app
 export default (props) => {
   const {
     cancel,

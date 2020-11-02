@@ -52,6 +52,7 @@ export default class UserSignIn extends Component {
     );
   }
 
+   //When changes are made to the input fields the state is changed accordingly
   change = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -63,6 +64,8 @@ export default class UserSignIn extends Component {
     });
   }
 
+  //On submition a course variable is created using the state 
+  //And are used as variable inputs with the credentials for the createCourse function
   submit = () => {
     const { context } = this.props;
     const { from } = this.props.location.state || { from: { pathname: '/' } };

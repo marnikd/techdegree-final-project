@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default () => {
   
+  //Shows this user message when a course has been succesfully deleted
   return(  
   <div className="bounds">
     <h1>Course Deleted</h1>

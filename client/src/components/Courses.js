@@ -19,6 +19,8 @@ componentDidMount(){
     const { courses } = this.state;
     const jsx = [];
     
+    //Runs through the courses in this.state.courses and creates the right jsx for every course
+    //and pushes the course on the jsx array
       for (const course of courses){
         jsx.push(
             <div key={course.id} className="grid-33"><Link className="course--module course--link" to={`courses/${course.id}`}>
@@ -42,6 +44,8 @@ componentDidMount(){
 
     }
 
+    //Sets the state to an array of courses fetched with a function uses loading state to make sure 
+    //the page only tries to display the courses when finished loading    
     courses = () => {
       this.setState({
           loading: true

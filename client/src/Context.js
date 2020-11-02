@@ -27,7 +27,8 @@ export class Provider extends Component {
       actions: {
         signIn: this.signIn,
         signOut: this.signOut,
-        fetchCourses: this.fetchCourses
+        fetchCourses: this.fetchCourses,
+        fetchCourse: this.fetchCourse
         
       },
     };
@@ -65,6 +66,14 @@ export class Provider extends Component {
       return courses;
     })
   }
+
+  fetchCourse = (id) => {
+    return this.data.getCourse(id).then(course =>{
+      return course;
+    })
+  }
+
+
 }
 
 export const Consumer = Context.Consumer;

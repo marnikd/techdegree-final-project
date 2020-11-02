@@ -2,7 +2,8 @@ import React from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Switch
+  Switch,
+  Redirect
 } from 'react-router-dom';
 
 import Header from './components/Header';
@@ -22,7 +23,7 @@ import PrivateRoute from './PrivateRoute';
 import withContext from './Context';
 
 
-
+//Give context to components that need to make use of this
 const HeaderContext = withContext(Header); 
 const CourseDetailContext = withContext(CourseDetail);
 const CoursesContext = withContext(Courses);
@@ -41,15 +42,16 @@ export default () => (
 
       <Switch>
         <Route exact path="/" component={CoursesContext} />
-        <PrivateRoute path="/courses/create" component={CreateCourseContext} />
-        <PrivateRoute path="/courses/:id/update" component={UpdateCourseContext} />
-        <Route path="/courses/:id" component={CourseDetailContext} />
-        <Route path="/signin" component={UserSignInContext} />
-        <Route path="/signup" component={UserSignUpContext} />
-        <Route path="/signout" component={UserSignOutContext} />
-        <Route path="/delete" component={Delete} />
-        <Route path="/error" component={UnhandledError}/>
-        <Route component={NotFound} />
+        <PrivateRoute exact path="/courses/create" component={CreateCourseContext} />
+        <PrivateRoute exact path="/courses/:id/update" component={UpdateCourseContext} />
+        <Route exact path="/courses/:id" component={CourseDetailContext} />
+        <Route exact path="/signin" component={UserSignInContext} />
+        <Route exact path="/signup" component={UserSignUpContext} />
+        <Route exact path="/signout" component={UserSignOutContext} />
+        <Route exact path="/delete" component={Delete} />
+        <Route exact path="/error" component={UnhandledError}/>
+        <Route exact path="/notfound" component={NotFound} />
+        <Redirect exact to="/notfound"/>
       </Switch>
     </div>
   </Router>

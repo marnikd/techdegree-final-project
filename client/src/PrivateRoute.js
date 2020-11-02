@@ -2,6 +2,8 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { Consumer } from './Context';
 
+//Can be used for a Route so that a user gets redirected to the sign in page, 
+//when there is no authenticated user.
 export default ({ component: Component, ...rest }) => {
   return (
     <Consumer>

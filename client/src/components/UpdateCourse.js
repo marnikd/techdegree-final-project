@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 
 import Form from './Form'
-import NotFound from './NotFound';
 import Forbidden from './Forbidden';
 
 export default class UpdateCourse extends Component {
@@ -17,18 +16,12 @@ export default class UpdateCourse extends Component {
 
 
 componentDidMount(){
-    this.courses();
+    this.course();
 }
 
 
   render() {
-    const { courses } = this.state;
-    let num;
-    for(let i = 0; i< courses.length; i++){
-      if(courses[i].id == this.props.match.params.id){
-        num = i;
-      }
-    }
+    const { course } = this.state;
 
     let {
       title,
@@ -39,10 +32,10 @@ componentDidMount(){
     } = this.state;    
 
     return ((this.state.loading)?<p>Loading...</p>:
-       <Route render={()=>(this.props.context.authenticatedUser && courses[num] && this.props.context.authenticatedUser.id===courses[num].userId)?
-       <Route render={()=> (courses[num])?<div className="bounds course--detail">
+       <Route render={()=>(this.props.context.authenticatedUser && course && this.props.context.authenticatedUser.id===course.userId)?
+       <Route render={()=> (course)?<div className="bounds course--detail">
         <h1>Update Course</h1>
-        {this.update(num)}
+        {this.update()}
         <div>
           <Form
           cancel={this.cancel}
@@ -83,42 +76,47 @@ componentDidMount(){
            )}  
           />
         </div>
-        </div>:<NotFound/>}/>:<Forbidden/>}/>
+        </div>:<Redirect exact to="/notfound"/>}/>:<Forbidden/>}/>
     );
   }
 
-  courses = () => {
+  //Function to set the state to the course needed to display and setting the loading so that the page 
+  //Only tries to display the course when finished loading
+  course = () => {
     this.setState({
         loading: true
     });
-    this.props.context.actions.fetchCourses()
+    this.props.context.actions.fetchCourse(this.props.match.params.id)
     .then(response => {
         this.setState({
-            courses: response,
+            course: response,
             loading: false
         });
     })
     .catch(error =>{
         console.log('Error fetching data', error);
+        this.props.history.push('/error');
     });
 }
 
-  update = (num) =>{
+  //On fetching the update page the state is set to the data of the course 
+  update = () =>{
   if(!this.state.title){
     if(!this.state.updateSet){
     this.setState(() => {
       return{
-      title: this.state.courses[num].title,
-      description: this.state.courses[num].description,
-      estimatedTime: this.state.courses[num].estimatedTime,
-      materialsNeeded: this.state.courses[num].materialsNeeded,
+      title: this.state.course.title,
+      description: this.state.course.description,
+      estimatedTime: this.state.course.estimatedTime,
+      materialsNeeded: this.state.course.materialsNeeded,
       updateSet: true
       };
     });
     }
   }
   }
-
+  
+  //When changes are made to the input fields the state is changed accordingly
   change = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -130,6 +128,8 @@ componentDidMount(){
     });
   }
 
+  //On submition a course variable is created using the state 
+  //And are used as variable inputs with the credentials for the createCourse function
   submit = () => {
     const { context } = this.props;
     const {
@@ -140,7 +140,6 @@ componentDidMount(){
       userId
     } = this.state;
 
-    // Create course
     const course = {
       title,
       description,
@@ -170,6 +169,6 @@ componentDidMount(){
   }
 
   cancel = () => {
-   this.props.history.push('/');
+   this.props.history.push(`/courses/${this.props.match.params.id}`);
   }
 }

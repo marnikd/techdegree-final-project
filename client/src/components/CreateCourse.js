@@ -67,6 +67,7 @@ export default class CreateCourse extends Component {
     );
   }
 
+  //If user gives input state is changed for this input field
   change = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -78,6 +79,8 @@ export default class CreateCourse extends Component {
     });
   }
 
+  //On submition a course variable is created using the state 
+  //And are used as variable inputs with the credentials for the createCourse function
   submit = () => {
     const { context } = this.props;
     const {
@@ -88,7 +91,6 @@ export default class CreateCourse extends Component {
       userId
     } = this.state;
 
-    // Create course
     const course = {
       title,
       description,
