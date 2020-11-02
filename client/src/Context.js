@@ -39,7 +39,7 @@ export class Provider extends Component {
     );
   }
 
-  
+  //Sign in function on client side and sets cookie for authenticated user
   signIn = async (emailAddress, password) => {
     const user = await this.data.getUser(emailAddress, password);
     if (user !== null) {
@@ -56,17 +56,20 @@ export class Provider extends Component {
     return user;
   }
 
+  //Sign out and removes cookie
   signOut = () => {
     this.setState({ authenticatedUser: null });
     Cookies.remove('authenticatedUser');
   }
 
+  //Function to fetch all courses
   fetchCourses = () => {
     return this.data.getCourses().then(courses =>{
       return courses;
     })
   }
 
+  //Function to fetch a specific course
   fetchCourse = (id) => {
     return this.data.getCourse(id).then(course =>{
       return course;
@@ -78,12 +81,8 @@ export class Provider extends Component {
 
 export const Consumer = Context.Consumer;
 
-/**
- * A higher-order component that wraps the provided component in a Context Consumer component.
- * @param {class} Component - A React component.
- * @returns {function} A higher-order component.
- */
 
+//A higher-order component that wraps the provided component in a Context Consumer component.
 export default function withContext(Component) {
   return function ContextComponent(props) {
     return (

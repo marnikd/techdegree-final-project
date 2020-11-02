@@ -118,6 +118,7 @@ export default class CreateCourse extends Component {
   
   }
 
+  //Returns to mainpage
   cancel = () => {
    this.props.history.push('/');
   }

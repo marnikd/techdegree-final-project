@@ -118,6 +118,7 @@ export default class UserSignUp extends Component {
   
   }
 
+  //Returns to mainpage
   cancel = () => {
    this.props.history.push('/');
   }

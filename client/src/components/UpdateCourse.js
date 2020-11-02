@@ -168,6 +168,7 @@ componentDidMount(){
   
   }
 
+  //Returns to course detail page
   cancel = () => {
    this.props.history.push(`/courses/${this.props.match.params.id}`);
   }

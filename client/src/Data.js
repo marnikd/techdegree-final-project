@@ -1,5 +1,6 @@
 export default class Data {
- async api(path, method = 'GET', body = null, requiresAuth = false, encrypted=false, credentials = null) {
+ //Function to handle api requests
+  async api(path, method = 'GET', body = null, requiresAuth = false, encrypted=false, credentials = null) {
     const url = 'http://localhost:5000/api' + path;
     const options = {
       method,

@@ -34,6 +34,7 @@ export default (props) => {
   );
 }
 
+//Function to display validation errors in a user friendly way
 function ErrorsDisplay({ errors }) {
   let errorsDisplay = null;
 
