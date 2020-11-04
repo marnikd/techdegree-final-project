@@ -32,8 +32,8 @@ componentDidMount(){
     } = this.state;    
 
     return ((this.state.loading)?<p>Loading...</p>:
-       <Route render={()=>(this.props.context.authenticatedUser && course && this.props.context.authenticatedUser.id===course.userId)?
-       <Route render={()=> (course)?<div className="bounds course--detail">
+       <Route render={()=>(course)?
+       <Route render={()=> (this.props.context.authenticatedUser && this.props.context.authenticatedUser.id===course.userId)?<div className="bounds course--detail">
         <h1>Update Course</h1>
         {this.update()}
         <div>
@@ -76,7 +76,7 @@ componentDidMount(){
            )}  
           />
         </div>
-        </div>:<Redirect exact to="/notfound"/>}/>:<Forbidden/>}/>
+        </div>:<Redirect exact to="/forbidden"/>}/>:<Redirect exact to="/notfound"/>}/>
     );
   }
 

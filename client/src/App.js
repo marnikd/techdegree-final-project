@@ -17,10 +17,12 @@ import UpdateCourse from './components/UpdateCourse';
 import NotFound from './components/NotFound';
 import Delete from './components/Delete';
 import UnhandledError from './components/UnhandledError';
+import Forbidden from './components/Forbidden';
 
 
 import PrivateRoute from './PrivateRoute';
 import withContext from './Context';
+
 
 
 //Give context to components that need to make use of this
@@ -50,6 +52,7 @@ export default () => (
         <Route exact path="/signout" component={UserSignOutContext} />
         <Route exact path="/delete" component={Delete} />
         <Route exact path="/error" component={UnhandledError}/>
+        <Route exact path="/forbidden" component={Forbidden} />
         <Route exact path="/notfound" component={NotFound} />
         <Redirect exact to="/notfound"/>
       </Switch>
